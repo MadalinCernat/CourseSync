@@ -4,6 +4,9 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System.Security.Claims;
 using System.Linq.Dynamic.Core;
+using CourseSync.Data.Repositories;
+using CourseSync.Data.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseSync.Web
 {
@@ -82,6 +85,15 @@ namespace CourseSync.Web
                 });
             builder.Services.AddControllersWithViews()
                 .AddMicrosoftIdentityUI();
+
+            builder.Services.AddDbContext<CourseSyncDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICommunityRepository, CommunityRepository>();
+            builder.Services.AddScoped<ICommunityUserRepository, CommunityUserRepository>();
+            builder.Services.AddScoped<ILearningPathRepository, LearningPathRepository>();
+            builder.Services.AddScoped<ILearningStepRepository, LearningStepRepository>();
 
             var app = builder.Build();
             if (!app.Environment.IsDevelopment())
