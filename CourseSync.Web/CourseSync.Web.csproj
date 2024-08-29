@@ -13,4 +13,8 @@
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CourseSync.Services\CourseSync.Services.csproj" />
+  </ItemGroup>
+
 </Project>
